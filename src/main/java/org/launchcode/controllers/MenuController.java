@@ -1,6 +1,5 @@
 package org.launchcode.controllers;
 
-import org.launchcode.models.Category;
 import org.launchcode.models.Cheese;
 import org.launchcode.models.Menu;
 import org.launchcode.models.data.CheeseDao;
@@ -46,8 +45,8 @@ public class MenuController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(@ModelAttribute @Valid Menu menu,
-                                       Errors errors, Model model) {
+    public String add(Model model, @ModelAttribute @Valid Menu menu,
+                                       Errors errors) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Cheese");
@@ -57,8 +56,8 @@ public class MenuController {
         return "redirect:view/" + menu.getId();
     }
 
-    @RequestMapping(value = "view/ {menuId}", method = RequestMethod.GET)
-    public String viewMenu(@PathVariable int menuId, Model model) {
+    @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
+    public String viewMenu(Model model, @PathVariable int menuId) {
 
         Menu menu = menuDao.findOne(menuId);
         model.addAttribute("title", menu.getName());
@@ -68,7 +67,7 @@ public class MenuController {
         return "menu/view";
     }
 
-    @RequestMapping(value = "add-item/ {menuId}", method = RequestMethod.GET)
+    @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
     public String addItem(@PathVariable int menuId, Model model) {
 
         Menu menu = menuDao.findOne(menuId);
@@ -94,6 +93,6 @@ public class MenuController {
         theMenu.addItem(theCheese);
         menuDao.save(theMenu);
 
-        return "redirect/menu/view/" + theMenu.getId();
+        return "redirect:/menu/view/" + theMenu.getId();
     }
 }
