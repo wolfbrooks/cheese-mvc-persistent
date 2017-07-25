@@ -8,7 +8,7 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${cheeses} and ${cheeses.size()}">no cheese :(</p>
+<p th:unless="${checklists} and ${checklists.size()}">no checklists :(</p>
 
 
 <table class="table">
@@ -19,17 +19,17 @@
         <th>Category</th>
     </tr>
 
-    <tr th:each="cheese : ${cheeses}">
-        <td th:text="${cheese.name}"></td>
-        <td th:text="${cheese.description}"></td>
-        <td th:text="${cheese.category.name}"></td>
+    <tr th:each="checklist : ${checklists}">
+        <td th:text="${checklist.name}"></td>
+        <td th:text="${checklist.description}"></td>
+        <td th:text="${checklist.category.name}"></td>
     </tr>
 
 </table>
 
 <nav th:fragment="navigation">
-    <a href="/cheese/add">Add</a> |
-    <a href="/cheese/remove">Remove</a>
+    <a href="/checklist/add">Add</a> |
+    <a href="/checklist/remove">Remove</a>
 </nav>
 
 </body>

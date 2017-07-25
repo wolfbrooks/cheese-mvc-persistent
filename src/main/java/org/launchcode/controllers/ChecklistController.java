@@ -1,11 +1,10 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
-import org.launchcode.models.Cheese;
+import org.launchcode.models.Checklist;
 import org.launchcode.models.data.CategoryDao;
-import org.launchcode.models.data.CheeseDao;
+import org.launchcode.models.data.ChecklistDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,62 +19,61 @@ import javax.validation.Valid;
  * Created by LaunchCode
  */
 @Controller
-@RequestMapping("cheese")
-public class CheeseController {
+@RequestMapping("checklist")
+public class ChecklistController {
 
     @Autowired
-    private CheeseDao cheeseDao;
+    private ChecklistDao checklistDao;
 
     @Autowired
     private CategoryDao categoryDao;
 
-    // Request path: /cheese
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("cheeses", cheeseDao.findAll());
-        model.addAttribute("title", "My Cheeses");
+        model.addAttribute("checklists", checklistDao.findAll());
+        model.addAttribute("title", "My Lists");
 
-        return "cheese/index";
+        return "checklist/index";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddCheeseForm(Model model) {
-        model.addAttribute("title", "Add Cheese");
-        model.addAttribute(new Cheese());
+    public String displayAddListForm(Model model) {
+        model.addAttribute("title", "Add Checklist");
+        model.addAttribute(new Checklist());
         model.addAttribute("categories", categoryDao.findAll());
-        return "cheese/add";
+        return "checklist/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute  @Valid Cheese newCheese,
+    public String processAddListForm(@ModelAttribute  @Valid Checklist newChecklist,
                                        Errors errors, @RequestParam int categoryId, Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Cheese");
+            model.addAttribute("title", "Add Checklist");
             model.addAttribute("categories", categoryDao.findAll());
-            return "cheese/add";
+            return "checklist/add";
         }
 
         Category cat = categoryDao.findOne(categoryId);
-        newCheese.setCategory(cat);
+        newChecklist.setCategory(cat);
 
-        cheeseDao.save(newCheese);
+        checklistDao.save(newChecklist);
         return "redirect:";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveCheeseForm(Model model) {
-        model.addAttribute("cheeses", cheeseDao.findAll());
-        model.addAttribute("title", "Remove Cheese");
-        return "cheese/remove";
+    public String displayRemoveListForm(Model model) {
+        model.addAttribute("checklists", checklistDao.findAll());
+        model.addAttribute("title", "Remove Checklist");
+        return "checklist/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
+    public String processRemoveListForm(@RequestParam int[] checklistIds) {
 
-        for (int cheeseId : cheeseIds) {
-            cheeseDao.delete(cheeseId);
+        for (int checklistId : checklistIds) {
+            checklistDao.delete(checklistId);
         }
 
         return "redirect:";

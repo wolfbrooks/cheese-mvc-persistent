@@ -11,14 +11,15 @@
 <h3 th:text="${title}">Default Title</h3>
 
 <ul>
-    <li th:each="menu : ${menus}">
-        <a href="'/menu/view/' + ${menu.id}" th:text="${menu.name}"></a>
+    <li th:each="favorite : ${favorite}">
+        <a th:href="'/favorite/view/' + ${favorite.id}" th:text="${favorite.name}"></a>
     </li>
 </ul>
 
 <nav th:fragment="navigation">
 
-    <a href="/menu/add">Add Menu</a>
+    <a href="/favorite/add">Add Favorite</a> |
+    <a href="/favorite/remove">Remove Favorite</a>
 </nav>
 
 </body>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+
+<form method="post" style="max-width:600px;" th:object="${form}" action="/favorite/add-item">
+    <div class="form-group">
+        <label th:for="checklistId">Checklist</label>
+        <select name="checklistId">
+            <option th:each="checklist : *{checklists}"
+                    th:text="${checklist.name}"
+                    th:value="${checklist.id}"></option>
+        </select>
+    </div>
+
+    <input type="hidden" name="favoriteId" th:value="*{favorite.id}"/>
+    <input type="submit" value="Add Item" />
+
+</form>
+
+</body>
+</html>

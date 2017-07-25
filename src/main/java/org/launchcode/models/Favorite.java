@@ -6,14 +6,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by brian on 6/19/2017.
  */
 @Entity
-public class Menu {
+public class Favorite {
 
     @NotNull
     @Size(min=3, max=15)
@@ -24,16 +23,16 @@ public class Menu {
     private int id;
 
     @ManyToMany
-    private List<Cheese> cheeses;
+    private List<Checklist> checklists;
 
-    public Menu(String name) {
+    public Favorite(String name) {
         this.name = name;
     }
 
-    public Menu() { }
+    public Favorite() { }
 
-    public void addItem(Cheese item) {
-        cheeses.add(item);
+    public void addItem(Checklist item) {
+        checklists.add(item);
     }
 
     public String getName() {
@@ -48,8 +47,8 @@ public class Menu {
         return id;
     }
 
-    public List<Cheese> getCheeses() {
-        return cheeses;
+    public List<Checklist> getChecklists() {
+        return checklists;
     }
 
 }

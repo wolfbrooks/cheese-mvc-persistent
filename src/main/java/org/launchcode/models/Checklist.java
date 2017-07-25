@@ -9,7 +9,7 @@ import java.util.List;
  * Created by LaunchCode
  */
 @Entity
-public class Cheese {
+public class Checklist {
 
     @Id
     @GeneratedValue
@@ -23,18 +23,26 @@ public class Cheese {
     @Size(min=1, message = "Description must not be empty")
     private String description;
 
+    @NotNull
+    private String url;
+
+    @NotNull
+    private String image;
+
     @ManyToOne
     private Category category;
 
-    @ManyToMany(mappedBy = "cheeses")
+    @ManyToMany(mappedBy = "checklists")
     private List<Menu> menus;
 
-    public Cheese(String name, String description) {
+    public Checklist(String name, String description, String url, String image) {
         this.name = name;
         this.description = description;
+        this.url = url;
+        this.image = image;
     }
 
-    public Cheese() { }
+    public Checklist() { }
 
     public int getId() {
         return id;
@@ -62,5 +70,21 @@ public class Cheese {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

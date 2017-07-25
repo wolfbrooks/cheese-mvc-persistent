@@ -9,13 +9,13 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <ul>
-    <li th:each="cheese : ${cheeses}" th:text="${cheese.name"}></li>
+    <li th:each="checklist : ${checklists}" th:text="${checklist.name}"></li>
 </ul>
 
-<p th:unless="${cheeses.size()}">No cheeses yet</p>
+<p th:unless="${checklists.size()}">No checklists yet</p>
 
 
-<p><a th:href="'/menu/add-item/' + ${menu.id}">Add Cheese</a></p>
+<p><a th:href="'/favorite/add-item/' + ${favoriteId}">Add Checklist</a></p>
 
 </body>
 </html>
